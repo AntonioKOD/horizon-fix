@@ -7,7 +7,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
-import { Calendar } from "@/components/ui/calendar"
 import { Textarea } from "@/components/ui/textarea"
 import {
   Dialog,
@@ -31,7 +30,6 @@ import {
 } from "lucide-react"
 
 export default function Dashboard() {
-  const [date, setDate] = useState<Date | undefined>(new Date())
   const [messageOpen, setMessageOpen] = useState(false)
   const [selectedJob, setSelectedJob] = useState<Job | null>(null)
 
@@ -422,7 +420,7 @@ export default function Dashboard() {
                 <CardDescription>View and manage your scheduled jobs</CardDescription>
               </CardHeader>
               <CardContent>
-                <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border" />
+                
               </CardContent>
             </Card>
             <Card>
