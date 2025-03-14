@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
 import {
   Dialog,
   DialogContent,
@@ -18,7 +17,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Clock } from "lucide-react"
 
 export default function BookingModal() {
-  const [date, setDate] = useState<Date | undefined>(new Date())
+  
   const [timeSlot, setTimeSlot] = useState<string>("")
 
   return (
@@ -34,7 +33,6 @@ export default function BookingModal() {
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
             <Label htmlFor="date">Date</Label>
-            <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border" />
           </div>
           <div className="grid gap-2">
             <Label>Available Time Slots</Label>
