@@ -76,3 +76,23 @@ export async function updateProfile(formData: FormData, id:string): Promise<void
     
 
 }
+
+export async function searchTradespeople(search: string){
+    const tradespeople = await prisma.tradesperson.findMany({
+        where: {
+            OR: [
+                {
+                    name: {
+                        contains: search
+                    }
+                },
+                {
+                    businessName: {
+                        contains: search
+                    }
+                }
+            ]
+        }
+    })
+    return tradespeople
+}

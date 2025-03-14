@@ -60,7 +60,11 @@ model Tradesperson {
   reviews                Review[]
   averageRating          Float?
   reviewCount            Int?
+  categories             String[]
 }
+
+
+
 
 model Service {
   id                   String                @id @default(auto()) @map("_id") @db.ObjectId
