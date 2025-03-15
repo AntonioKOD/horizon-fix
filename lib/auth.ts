@@ -4,6 +4,7 @@ import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import {SessionStrategy} from 'next-auth'
 import {PrismaClient} from '@prisma/client'
 import bcrypt from "bcrypt"
+ // Adjust the import path as necessary
 
 const prisma = new PrismaClient()
 
@@ -12,17 +13,19 @@ export const authOptions: NextAuthOptions = {
     providers: [
         {
             id: "credentials",
-            name: "Credentials",
+            name: "Client Credentials",
             type: "credentials",
             credentials: {
                 identifier: {label: "Username or Email", type: "text"},
                 password: {label: "Password", type: "password"}
             },
             async authorize(credentials){
-                if(credentials?.identifier === "admin" && credentials?.password === "admin"){
-                    throw new Error("Email and password are required")
+                console.debug("Client Credentials: Starting authorization process", { identifier: credentials?.identifier });
 
-                }
+        if (!credentials?.identifier || !credentials?.password) {
+          console.error("Client Credentials: Missing identifier or password");
+          throw new Error("Email and password are required");
+        }
                 const user = await prisma.client.findFirst({
                     where: {
                         OR: [
@@ -31,6 +34,16 @@ export const authOptions: NextAuthOptions = {
                         ]
                     }
                 })
+
+                if (!user) {
+                    console.warn("Client Credentials: No user found for identifier", { identifier: credentials.identifier });
+                    throw new Error("No user found");
+                  }
+          
+                  if (!user.emailVerified) {
+                    console.warn("Client Credentials: Email not verified for user", { email: user.email });
+                    throw new Error("Email not verified");
+                  }
                 if(!user) throw new Error("No user found")
                 if(!user.emailVerified) throw new Error("Email not verified")
                 if(!credentials?.password || !bcrypt.compare(credentials.password, user.password)) throw new Error("Password is incorrect")
@@ -41,16 +54,18 @@ export const authOptions: NextAuthOptions = {
         },
         {
             id: "tradesperson",
-            name: "Tradesperson",
+            name: "Tradesperson Credentials",
             type: "credentials",
             credentials: {
                 identifier: {label: "Username or Email", type: "text"},
                 password: {label: "Password", type: "password"}
             },
             async authorize(credentials){
-                if(credentials?.identifier === "admin" && credentials?.password === "admin"){
-                    throw new Error("Email and password are required")
+                console.debug("Tradesperson Credentials: Starting authorization process", { identifier: credentials?.identifier });
 
+                if (!credentials?.identifier || !credentials?.password) {
+                  console.error("Tradesperson Credentials: Missing identifier or password");
+                  throw new Error("Email and password are required");
                 }
                 const tradesperson = await prisma.tradesperson.findFirst({
                     where: {
@@ -60,6 +75,15 @@ export const authOptions: NextAuthOptions = {
                         ]
                     }
                 })
+                if (!tradesperson) {
+                    console.warn("Tradesperson Credentials: No tradesperson found for identifier", { identifier: credentials?.identifier });
+                    throw new Error("No tradesperson found");
+                  }
+          
+                  if (!tradesperson.emailVerified) {
+                    console.warn("Tradesperson Credentials: Email not verified for tradesperson", { email: tradesperson.email });
+                    throw new Error("Email not verified");
+                  }
                 if(!tradesperson) throw new Error("No tradesperson found")
                 if(!tradesperson.emailVerified) throw new Error("Email not verified")
                 if(!credentials?.password || !bcrypt.compareSync(credentials.password, tradesperson.password)) throw new Error("Password is incorrect")
