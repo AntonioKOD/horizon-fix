@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -13,6 +13,7 @@ import Link from "next/link"
 import { Search, MapPin, Filter, Star, Shield, Clock, Grid3X3, List } from "lucide-react"
 import Image from "next/image"
 import { searchTradespeople } from "@/actions"
+import {useSearchParams} from 'next/navigation'
 
 export default function SearchPage() {
   const [view, setView] = useState("grid")
@@ -21,13 +22,24 @@ export default function SearchPage() {
   const [tradespeople, setTradespeople] = useState<{ id: string; name: string; email: string; phone: string | null; businessName: string | null; businessAddress: string | null; emailVerified: boolean; categories: string[]; profileImageUrl?: string; availability?: string; description?: string; reviews?:string[]; businessWebsite: string; businessType: string }[]>([])
   const [location, setLocation] = useState("")
   const [filtersVisible, setFiltersVisible] = useState(false)
+  const searchParams = useSearchParams()
+  const query = searchParams.get('q') || ""
+
+  const searchTradespeopleFunc = async (query: string) => {
+      return await searchTradespeople(query) as { id: string; name: string; email: string; phone: string | null; businessName: string | null; businessAddress: string | null; emailVerified: boolean; categories: string[]; profileImageUrl?: string; availability?: string; description?: string; reviews?: string[]; businessWebsite: string; businessType: string }[]
+    }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const searchResult = await searchTradespeople(searchQuery) as { id: string; name: string; email: string; phone: string | null; businessName: string | null; businessAddress: string | null; emailVerified: boolean; categories: string[]; profileImageUrl?: string; availability?: string; description?: string; reviews?: string[]; businessWebsite: string; businessType: string }[]
-      setTradespeople(searchResult)
-  }
+      e.preventDefault()
+      const searchResult = await searchTradespeople(searchQuery) as { id: string; name: string; email: string; phone: string | null; businessName: string | null; businessAddress: string | null; emailVerified: boolean; categories: string[]; profileImageUrl?: string; availability?: string; description?: string; reviews?: string[]; businessWebsite: string; businessType: string }[]
+      setTradespeople(searchResult.map(person => ({ ...person, profileImageUrl: person.profileImageUrl || undefined, availability: person.availability || undefined, description: person.description || undefined })))
+    }
     
+useEffect(() => {
+  if (query) {
+    searchTradespeopleFunc(query).then(result => setTradespeople(result))
+  }
+}, [query])
 
   return (
     <div className="container py-8">

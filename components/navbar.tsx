@@ -20,10 +20,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
+import { useRouter, useSearchParams } from "next/navigation"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const router = useRouter()
+  const SearchParams = useSearchParams()
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const { data: session } = useSession()
@@ -43,8 +46,9 @@ export default function Navbar() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Searching for:", searchQuery)
-    // Implement search functionality here
+    const params = new URLSearchParams(SearchParams)
+    params.set("q", searchQuery.toLowerCase())
+    router.push(`/search/?${params.toString()}`) 
   }
 
   const navItems = [

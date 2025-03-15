@@ -83,12 +83,14 @@ export async function searchTradespeople(search: string){
             OR: [
                 {
                     name: {
-                        contains: search
+                        contains: search.toLowerCase(),
+                        mode: 'insensitive'
                     }
                 },
                 {
                     businessName: {
-                        contains: search
+                        contains: search.toLowerCase(),
+                        mode: 'insensitive'
                     }
                 }
             ]

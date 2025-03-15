@@ -1,7 +1,6 @@
 'use client'
 import { Droplet, Plug, Hammer, Paintbrush, Wrench, Zap, Search, Star, Shield, PenToolIcon as Tool } from "lucide-react"
 import HeroSection from "@/components/hero-section"
-import SearchSection from "@/components/search-section"
 import ServiceCategories from "@/components/service-categories"
 import HowItWorks from "@/components/how-it-works"
 import TrustFeatures from "@/components/trust-features"
@@ -106,10 +105,6 @@ export default function Home() {
         imageSrc="/placeholder.svg?height=600&width=800"
         imageAlt="Happy homeowner with tradesperson"
       />
-
-      {/* Search Section */}
-      <SearchSection title="What service do you need?" />
-
       {/* Popular Categories */}
       <ServiceCategories title="Popular Services" categories={serviceCategories} />
 
