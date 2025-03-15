@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
                 if(!credentials?.password || !bcrypt.compare(credentials.password, user.password)) throw new Error("Password is incorrect")
                 const isPasswordValid = bcrypt.compare(credentials?.password, user.password)
                 if(!isPasswordValid) throw new Error("Password is incorrect")
-                return {id: user.id, name: user.name, email: user.email}
+                return {id: user.id, name: user.name ?? "", email: user.email ?? ""}
             }
         },
         {
@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
                 const isPasswordValid = bcrypt.compareSync(credentials?.password, tradesperson.password)
                 
                 if(!isPasswordValid) throw new Error("Password is incorrect")
-                return {id: tradesperson.id, name: tradesperson.name, email: tradesperson.email}
+                return {id: tradesperson.id, name: tradesperson.name ?? "", email: tradesperson.email ?? ""}
             }
         }
     ],
