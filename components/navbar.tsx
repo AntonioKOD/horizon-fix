@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { useSession } from "next-auth/react"
 import { signOut } from "next-auth/react"
+import { Suspense } from "react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -103,6 +104,7 @@ export default function Navbar() {
         </div>
 
         {/* Search bar for desktop */}
+        <Suspense fallback={<div>Loading....</div>}>
         <div className="hidden md:flex items-center max-w-xs w-full mx-4">
           <form onSubmit={handleSearch} className="relative w-full group">
             <Input
@@ -123,6 +125,7 @@ export default function Navbar() {
             </Button>
           </form>
         </div>
+        </Suspense>
 
         <div className="flex items-center gap-2">
           {user ? (
@@ -209,6 +212,7 @@ export default function Navbar() {
               )}
 
               {/* Search bar for mobile */}
+              <Suspense fallback={<div>Loading....</div>}>
               <div className="py-4">
                 <form onSubmit={handleSearch} className="relative">
                   <Input
@@ -229,6 +233,7 @@ export default function Navbar() {
                   </Button>
                 </form>
               </div>
+              </Suspense>
 
               <nav className="flex flex-col gap-1">
                 {navItems.map((item) => (
