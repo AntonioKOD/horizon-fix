@@ -44,34 +44,14 @@ export default function Footer() {
                   How It Works
                 </Link>
               </li>
-              <li>
-                <Link href="/pricing" className="text-sm text-muted-foreground hover:text-primary">
-                  Pricing
-                </Link>
-              </li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-medium mb-4">For Tradespeople</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/join-as-pro" className="text-sm text-muted-foreground hover:text-primary">
+                <Link href="/auth/signup-trade" className="text-sm text-muted-foreground hover:text-primary">
                   Join as a Pro
-                </Link>
-              </li>
-              <li>
-                <Link href="/pro-resources" className="text-sm text-muted-foreground hover:text-primary">
-                  Resources
-                </Link>
-              </li>
-              <li>
-                <Link href="/success-stories" className="text-sm text-muted-foreground hover:text-primary">
-                  Success Stories
-                </Link>
-              </li>
-              <li>
-                <Link href="/pro-app" className="text-sm text-muted-foreground hover:text-primary">
-                  Mobile App
                 </Link>
               </li>
             </ul>
@@ -82,11 +62,6 @@ export default function Footer() {
               <li>
                 <Link href="/about" className="text-sm text-muted-foreground hover:text-primary">
                   About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/careers" className="text-sm text-muted-foreground hover:text-primary">
-                  Careers
                 </Link>
               </li>
               <li>

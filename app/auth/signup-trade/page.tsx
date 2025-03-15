@@ -168,7 +168,7 @@ export default function SignupForm() {
                     </FormItem>
                 )}
                 />
-                <FormDescription className='text-gray-500 text-sm'>Already have an account? <Link href='/login-trade' className='text-blue-600 font-bold'>Login</Link></FormDescription>
+                <FormDescription className='text-gray-500 text-sm'>Already have an account? <Link href='/auth/login-trade' className='text-blue-600 font-bold'>Login</Link></FormDescription>
                 <Button type='submit' className='w-full'>Sign Up</Button>
             </form>
         </Form>

@@ -77,7 +77,7 @@ export default function LoginForm() {
                   </FormItem>
                 )}
               />
-              <FormDescription className='text-gray-500 text-sm'>Don&apos;t have an account? <Link href='/signup' className="font-bold text-blue-600">Sign up</Link></FormDescription>
+              <FormDescription className='text-gray-500 text-sm'>Don&apos;t have an account? <Link href='/auth/signup-trade' className="font-bold text-blue-600">Sign up</Link></FormDescription>
               <Button type="submit" className="w-full">
                 Login
               </Button>
